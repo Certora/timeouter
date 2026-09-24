@@ -1,0 +1,35 @@
+[project]
+name = "timeouter"
+version = "0.1.0"
+description = "Re-run a timed-out Certora Prover job with a portfolio of solver configurations"
+authors = [{ name = "Certora", email = "support@certora.com" }]
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "rich",
+    "httpx",
+    "certora-login @ git+https://github.com/Certora/certora-cloud-cli-pub.git@3040b4a667654baf1f0579ef4407331eafebfe60#subdirectory=packages/certora_login",
+]
+
+[project.urls]
+Repository = "https://github.com/Certora/timeouter"
+
+[build-system]
+requires = ["setuptools>=77.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["packages"]
+
+[tool.setuptools.package-data]
+timeouter = [
+    "portfolio.EVM.json",
+    "portfolio.SOLANA.json",
+    "portfolio.SOROBAN.json",
+    "portfolio.SUI.json",
+]
+
+[project.scripts]
+timeouter = "timeouter.timeouter:main"

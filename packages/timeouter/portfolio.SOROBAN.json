@@ -1,0 +1,46 @@
+[
+  {
+    "flags": " -destructiveOptimizations twostage",
+    "msg": "Default soroban"
+  },
+  {
+    "flags": " -destructiveOptimizations twostage -depth 0",
+    "msg": "Depth 0"
+  },
+  {
+    "flags": " -destructiveOptimizations twostage -underApproxStartDepth 5",
+    "msg": "Underapproximation"
+  },
+  {
+    "flags": " -destructiveOptimizations twostage -backendStrategy singleRace -smt_useLIA false -smt_useNIA true -depth 0",
+    "msg": "Nonlin depth 0"
+  },
+  {
+    "flags": " -destructiveOptimizations twostage -backendStrategy singleRace -smt_useLIA false -smt_useNIA true",
+    "msg": "Nonlin"
+  },
+  {
+    "flags": " -destructiveOptimizations twostage -smt_initialSplitDepth 4 -depth 10 -mediumTimeout 2",
+    "msg": "Depth between 4,10"
+  },
+  {
+    "flags": " -destructiveOptimizations twostage -s [z3:def{randomSeed=1},z3:def{randomSeed=2},z3:def{randomSeed=3},z3:def{randomSeed=4},z3:def{randomSeed=5},z3:def{randomSeed=6},z3:def{randomSeed=7},z3:def{randomSeed=8},z3:def{randomSeed=9},z3:def{randomSeed=10}]",
+    "msg": "Z3 random seeds"
+  },
+  {
+    "flags": " -destructiveOptimizations twostage -splitParallel true -splitParallelInitialDepth 4 -splitParallelTimelimit 7200",
+    "msg": "Parallel splitter"
+  },
+  {
+    "flags": " -destructiveOptimizations twostage -backendStrategy singleRace -smt_useLIA false -smt_useNIA true -depth 0  -s [z3:def{randomSeed=1},z3:def{randomSeed=2},z3:def{randomSeed=3},z3:def{randomSeed=4},z3:def{randomSeed=5},z3:def{randomSeed=6},z3:def{randomSeed=7},z3:def{randomSeed=8},z3:def{randomSeed=9},z3:def{randomSeed=10}]",
+    "msg": "Nonlin depth 0 with Z3 random seeds"
+  },
+  {
+    "flags": " -destructiveOptimizations twostage -mediumTimeout 20 -lowTimeout 20 -tinyTimeout 20 -depth 20",
+    "msg": "deep"
+  },
+  {
+    "flags": " -destructiveOptimizations twostage -acSoft 6 -autoconfig_learn_from_current true",
+    "msg": "Autoconfig"
+  }
+]
