@@ -218,7 +218,6 @@ class Timeouter:
     runs_directory: Path = field(init=False)
     source_dir: Path = field(init=False)
     group_url: str = field(init=False, default="")
-    server: str = field(init=False)
     log_buffer: io.StringIO = field(init=False, default_factory=io.StringIO)
     portfolio: list[dict[str, str]] = field(init=False)
     portfolio_json: Path = field(init=False)
@@ -233,7 +232,7 @@ class Timeouter:
     runner: Runner = field(init=False)
 
     def parse_job_url(self) -> tuple[str, str, str]:
-        template: Final = re.compile(r"https://(vaas-stg\.certora\.com|prover\.certora\.com)/output/([^/]*)/([^/?]*)")
+        template: Final = re.compile(r"https://(prover\.certora\.com)/output/([^/]*)/([^/?]*)")
         match = template.match(self.job_url)
         if not match:
             raise ValueError(f"Could not parse the run URL {self.job_url}")
@@ -268,15 +267,9 @@ class Timeouter:
 
         parser.add_argument("-p", "--prover", dest="prover_cmd",
                             help="Use the command given for running the certora prover client. "
-                                 "If not set, use the command specified in the environment variable TIMEOUTER_PROVER "
-                                 "else if certora CLI package is installed, based on job's ecosystem use "
-                                 "certoraRun/certoraSolanaProver/certoraSorobanProver, else use the appropriate "
-                                 "locally installed script certoraRun.py/certoraSolanaProver.py/certoraSorobanProver.py"
-                                 " if found in PATH.")
-
-        choices = ["production", "staging"]
-        parser.add_argument("-s", "--server", default="production", choices=choices,
-                            help="Server for running the prover options are 'staging' or 'production' (the default)")
+                                 "If not set, use the command specified in the environment variable TIMEOUTER_PROVER, "
+                                 "else, based on the job's ecosystem, use "
+                                 "certoraRun/certoraSolanaProver/certoraSorobanProver/certoraSuiProver from PATH.")
 
         choices = ["none", "basic", "advanced"]
         parser.add_argument("--sanity_check",  default="basic", choices=choices,
@@ -377,7 +370,6 @@ class Timeouter:
                "--prover_args", f"{self.default_prover_args} {conf['flags']}",
                "--group_id", self.group_id,
                "--rule_sanity", self.sanity_check,
-               "--server", self.server,
 #               "--run_source", RUN_SOURCE_VALUE
                ]
         msgs = [conf["msg"]]

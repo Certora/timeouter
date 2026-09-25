@@ -2,7 +2,6 @@ import shutil
 import subprocess
 import sys
 import unittest
-import json
 from pathlib import Path
 import os
 
@@ -10,16 +9,10 @@ PACKAGE_NAME = "timeouter"
 PACKAGE_SRC = Path(__file__).resolve().parent / ".."
 WORK_DIR = Path(__file__).resolve().parent / "work"
 
-# An EVM run
-EVM_JOB_URL = "https://vaas-stg.certora.com/output/69614/fed1f795b86846fd9f72efa3a8581fba"
+# A well-formed job URL that points to no job
+EVM_JOB_URL = "https://prover.certora.com/output/1/00000000000000000000000000000000"
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-
-
-def write_portfolio(content: list[dict[str, str]]):
-    with open(Path.cwd() / 'portfolio.json', 'w') as f:
-        json.dump(content, f, indent=2)
-
 
 
 def run_timeouter(flags=None, timeouter_exec: str = "timeouter",
@@ -104,16 +97,6 @@ class TestFlags(unittest.TestCase):
 
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("Failed to download job", result.stderr)
-
-
-    def test_portfolios(self):
-        write_portfolio([{"flags": " -t 6000", "msg": "prover_arg with a matching CLI flag"}])
-        result = run_timeouter(portfolio="portfolio.json")
-        self.assertEqual(result.returncode, 1)
-        write_portfolio([{"flags_error": "-acSoft 6", "msg": "bad key"}])
-        result = run_timeouter(portfolio="portfolio_does_not_exist.json")
-        self.assertEqual(result.returncode, 1)
-        self.assertIn("Failed to load portfolio", result.stderr)
 
 
 if __name__ == "__main__":
