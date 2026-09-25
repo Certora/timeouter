@@ -11,10 +11,9 @@ The portfolio is bigger than the one that the report button uses. Also, Timeoute
 
 ## Prerequisites
 
-Install one of these:
+Install the Certora CLI. Timeouter runs the command of the CLI that matches the ecosystem of the job: `certoraRun`, `certoraSolanaProver`, `certoraSorobanProver` or `certoraSuiProver`. It finds the command in your `PATH`.
 
-- The Certora CLI (`certoraRun`, `certoraSolanaProver`, `certoraSorobanProver` or `certoraSuiProver`).
-- A local build of the Certora Prover, with its scripts (for example `certoraRun.py`) in your `PATH`.
+To use a different command, for example a local build of the Certora Prover, give it with `--prover` or in the `TIMEOUTER_PROVER` environment variable.
 
 You also need a Certora account.
 
